@@ -88,6 +88,14 @@ class Slack_Alarm(Alarm):
 		map = self.get_map(pkinfo)
 		self.post_message(channel, username, text, icon_url, map)
 
+	def set_topic(self, channel, topic):
+		args = {
+			'channel': self.get_channel(channel),
+			'topic': topic
+		}
+		try_sending(log, self.connect, "Slack", self.client.chat.post_message, args)
+	}
+
 	# Build a query for a static map of the pokemon location
 	def get_map(self, info):
 		if self.map is None: #If no map is set
